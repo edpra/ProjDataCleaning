@@ -52,8 +52,8 @@ tidyUpData <- function(rootdir, filetype1, filetype2) {
     # make.names creates "V1", "V1.1", and "V1.2"
     valid_column_names = make.names(names=names(dtms), unique=TRUE, allow_ = TRUE)
     names(dtms) = valid_column_names
-    print("==========Step 1 - dim(merged data from train and test datasets):==========")
-    print(dim(dtms))
+    #print("==========Step 1 - dim(merged data from train and test datasets):==========")
+    #print(dim(dtms))
     
     # STEP 2
     # 2. Extracts only the measurements on the mean and standard deviation for each measurement
@@ -70,16 +70,16 @@ tidyUpData <- function(rootdir, filetype1, filetype2) {
     # Select all columns with values generated with "mean()" and "std()"--note the parenthesis
     # Please note that variable names with just the word "mean" and "std" are not selected
     dtms = select(dtms, 1, 563, meanStdVars)
-    print("==========Step 2 - dim(datasets of mean() and std() variables):==========")
-    print(dim(dtms))
+    #print("==========Step 2 - dim(datasets of mean() and std() variables):==========")
+    #print(dim(dtms))
     
     # STEP 3
     # 3. Uses descriptive activity names to name the activities in the data set
     dtms = rename(dtms, "SubjectID"=V1, "Activity"=V1.2)
     activities = c("Walking", "WalkingUpstairs", "WalkingDownstairs", "Sitting", "Standing", "Laying")
     dtms$Activity = sapply(dtms$Activity, function(n) { activities[n] })
-    print("==========Step 3 - descriptive unique(dtms$Activity):==========")
-    print(unique(dtms$Activity))
+    #print("==========Step 3 - descriptive unique(dtms$Activity):==========")
+    #print(unique(dtms$Activity))
     
     # STEP 4
     # 4. Appropriately labels the data set with descriptive variable names
@@ -100,22 +100,22 @@ tidyUpData <- function(rootdir, filetype1, filetype2) {
         # NOTE: the -1 offset depends on the dtms = select statement earlier in the file
         featurenames[,2][num-1]  # adjust column number for SubjectID and Activity
     })
-    print("==========Step 4 - descriptive variable names):==========")
-    print(names(dtms))
+    #print("==========Step 4 - descriptive variable names):==========")
+    #print(names(dtms))
     
     # STEP 5
     # 5. From the data set in step 4, creates a second, independent tidy data set 
     #    with the average of each variable for each activity and each subject
     dtidy = dtms %>% group_by(SubjectID, Activity) %>% 
                      summarize_each(funs(mean)) %>% arrange(SubjectID, Activity)
-    print("==========Step 5 - dim(tidied dataset with variable means):==========")
-    print(dim(dtidy))
+    #print("==========Step 5 - dim(tidied dataset with variable means):==========")
+    #print(dim(dtidy))
     
     dtidy # return the new data table
 } # end of tidyUpData
 
 ##################################################
-
+# wrapper function to repeat in R interpreter for testing during development
 run_analysis <- function() {
     tidyUpData(rootdir, filetype1, filetype2)
 }
