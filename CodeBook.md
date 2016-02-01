@@ -6,5 +6,7 @@ The original code book, identified in the feature_info.txt, explains the data fe
 
 This dataset is a result of obtaining the original dataset, tidying up that dataset, and generating a new dataset that is summarized to contain mean values for each variable as grouped by subject id and activity.
 
-The tidy dataset is generate by the run_analysis.R script.  This script generates the dataset and saves to tidyData.csv file.  There are 68 variables and 180 observations in this dataset.  The variables names are listed in tidyData-feature.txt file.  There are two main variables, SubjectID and Activity.  All other variables are mean values for each variable grouped by SubjectID and Activity.  The observations are sorted by SubjectId and Activity.
+The tidy dataset is generate by the run_analysis.R script.  First all variables with strings "mean()" and "std()" in their names are selected into a new dataset.  You can change these values in the script to select different variables.  This script then generates the tidy dataset with modified variables names which you can change in the script.  Once finished processing this script saves the tidy dataset to tidyData.csv file.
+
+There are 68 variables and 180 observations in the tidy dataset.  The variables names are listed in tidyData-feature.txt file.  There are two main variables, SubjectID and Activity.  All other variables are mean values for each variable grouped by SubjectID and Activity.  The observations are sorted by SubjectId and Activity.
 
